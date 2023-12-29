@@ -40,21 +40,27 @@ jobs:
 
       - name: CP raiz 
         run: |
-          cp $GITHUB_WORKSPACE/build/libs/spring-petclinic-2.6.0.jar .
-          chmod 777 spring-petclinic-2.6.0.jar
-          ls -lt 
+          cp $GITHUB_WORKSPACE/build/libs/*.jar .
+          chmod 777 *.jar
+          ls -lt  
       
       - name: Docker Build
         run: | 
-          docker build --tag clagosu/pet-clinic:latest .
+          docker build --tag dockeruser701/useruoh:latest .
           docker images
 
       - name: Docker Push
         run: |
-          docker push clagosu/pet-clinic 
+          docker push dockeruser701/useruoh 
 
           deploy: 
           runs-on: self-hosted 
           needs: build
           steps: 
+
+          - uses: actions/checkout@v3
+    
+          - name: Deploy to Minikube
+            run: |
+              kubectl apply -f deployment.yml 
        
