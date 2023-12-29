@@ -18,5 +18,5 @@ public class GreetingController {
 	public @ResponseBody String greeting() {
 		return service.greet();
 	}
-
+          String  password = "123456789";
 }
