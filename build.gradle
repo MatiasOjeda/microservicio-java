@@ -20,7 +20,7 @@ dependencies {
 sonar { 
  properties {
   property "sonar.projectKey","MatiasOjeda_microservicio-java"
-  property "sonar.organization","matiasojeda"
+  property "sonar.organization","devops-fundamentosv6"
   property "sonar.host.url","https://sonarcloud.io/"
   property "sonar.projectName","microservicio-java"
   }	 
