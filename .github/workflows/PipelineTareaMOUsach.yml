@@ -23,7 +23,7 @@ jobs:
       - name: SonarCloud Analysis
         run: |
          chmod +x gradlew
-         ./gradlew buil sonar -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+         ./gradlew build sonar -Dsonar.token=${{ secrets.SONAR_TOKEN }}
 
       - name: SonarQube Quality Gate check
         uses: sonarsource/sonarqube-quality-gate-action@master
