@@ -15,10 +15,15 @@ jobs:
 
       - uses: actions/checkout@v3
     
-      - name: build
+      - name: build gradlew
         run: |
           chmod +x gradlew
           ./gradlew build sonar -Dsonar.token=${{ secrets.SONAR_TOKEN }} 
+          
+      - name: Generate Jacoco Coverage Report
+        run: |
+          chmod +x gradlew
+          ./gradlew jacocoTestReport
           
       - name: SonarCloud Analysis
         run: |
@@ -30,6 +35,8 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
           SONAR_HOST_URL: https://sonarcloud.io
+          SONAR_QUALITYGATE: 'Cobertura'
+          wait-for-quality-gate: true          
         with:
           scanMetadataReportFile: build/sonar/report-task.txt   
       - name: Docker Login
@@ -46,7 +53,7 @@ jobs:
       
       - name: Docker Build
         run: | 
-          docker build --tag dockeruser701/useruoh:latest .
+          docker build --tag ***/useruoh:latest .
           docker images
 
       - name: Docker Push
