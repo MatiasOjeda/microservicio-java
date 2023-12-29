@@ -19,7 +19,7 @@ jobs:
         run: |
           echo "building"
           
-      #- name: SonarCloud Analysis
-        #run: |
-         #chmod +x gradlew
-         #./gradlew buil sonar -Dsonar.token=${{ secrets.TOKENAGHIOSONAR1 }}
+      - name: SonarCloud Analysis
+        run: |
+         chmod +x gradlew
+         ./gradlew buil sonar -Dsonar.token=${{ secrets.SONAR_TOKEN }}
