@@ -1,12 +1,13 @@
 plugins {
-	id 'org.springframework.boot' version '2.6.3'
+	id 'org.springframework.boot' version '2.6.6'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id "org.sonarqube" version "4.2.1.3168"
 }
-
-group = 'com.example'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+apply plugin: 'java' 
+group = 'org.springframework.samples'
+version = '2.6.0'
+sourceCompatibility = '11'
 
 repositories {
 	mavenCentral()
@@ -16,6 +17,14 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
+sonar { 
+ properties {
+  property "sonar.projectKey","MatiasOjeda_microservicio-java"
+  property "sonar.organization","matiasojeda"
+  property "sonar.host.url","https://sonarcloud.io/"
+  property "sonar.projectName","microservicio-java"
+  }	 
+}	
 
 test {
 	useJUnitPlatform()
