@@ -1,24 +1,38 @@
 name: CI
 
 on: 
-
   push:
   workflow_dispatch:
 
 jobs:
-
   build:
-
+    name :Build App
     runs-on: ubuntu-latest
-
     steps:
-
-      - uses: actions/checkout@v3
-    
-      - name: build gradlew
+      - name: Checkout code
+      - uses: actions/checkout@v3 
+        with:
+          fetch-depth: 0
+          
+      - name: Cache Gradle packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: ${{ runner.os }}-gradle    
+   
+      - name: Build Gradlew
         run: |
           chmod +x gradlew
           ./gradlew build sonar -Dsonar.token=${{ secrets.SONAR_TOKEN }} 
+          ls -lah $GITHUB_WORKSPACE/build/libs/
+
+      - name: Archive artifact java app
+        if: success()
+        uses: actions/upload-artifact@v3
+        with:
+          name: java-app
+          path: build/libs/testing-web-0.0.1-SNAPSHOT.jar
           
       - name: Generate Jacoco Coverage Report
         run: |
