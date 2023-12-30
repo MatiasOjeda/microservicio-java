@@ -45,7 +45,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: CP raiz 
+      - name: CP raiz Jar 
         run: |
           cp $GITHUB_WORKSPACE/build/libs/*.jar .
           chmod 777 *.jar
@@ -53,12 +53,12 @@ jobs:
       
       - name: Docker Build
         run: | 
-          docker build --tag ***/useruoh:latest .
+          docker build --tag dockeruser701/useruoh:latest .
           docker images
 
       - name: Docker Push
-        run: |
-          docker push dockeruser701/useruoh 
+        run: |           
+          docker push matias1980/dockerjar
 
           deploy: 
           runs-on: self-hosted 
@@ -66,7 +66,7 @@ jobs:
           steps: 
 
           - uses: actions/checkout@v3
+          
           - name: Deploy to Minikube
             run: |
               kubectl apply -f deployment.yml 
-       
