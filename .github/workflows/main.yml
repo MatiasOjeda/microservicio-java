@@ -65,8 +65,8 @@ jobs:
 
       - name: Docker Push
         run: |           
-          docker push matias1980/dockerjar
-
+          docker push dockeruser701/useruoh 
+        #docker push matias1980/dockerjar
           deploy: 
           runs-on: self-hosted 
           needs: build
